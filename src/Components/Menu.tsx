@@ -10,45 +10,17 @@ interface MenuProps {
 }
 
 export default function Menu(props: MenuProps) {
-  // ============================================================
-  // TODO 1: Create a state variable to track the quantity.
-  //         The initial value should be 1.
-  //
-  // HINT: Use the useState hook.
-  //       const [something, setSomething] = useState(initialValue);
-  // ============================================================
+
   const [quantity, setQuantity] = useState(0);
 
-
-  // ============================================================
-  // TODO 2: Implement handleIncrement
-  //         This should increase the quantity by 1.
-  //
-  // HINT: Use the setter function from your state variable.
-  // ============================================================
   const handleIncrement = () => {
     setQuantity(prev => prev + 1);
   };
 
-  // ============================================================
-  // TODO 3: Implement handleDecrement
-  //         This should decrease the quantity by 1,
-  //         but NEVER go below 1.
-  //
-  // HINT: Use an if-statement to guard against going below 1.
-  // ============================================================
   const handleDecrement = () => {
     if (quantity > 0) setQuantity(prev => prev - 1);
   };
 
-  // ============================================================
-  // TODO 4: Implement handleAddClick
-  //         This should:
-  //         a) Call props.onAddToOrder and pass the current quantity
-  //         b) Reset the quantity back to 1
-  //
-  // HINT: Call the callback prop, then reset your state.
-  // ============================================================
   const handleAddClick = () => {
     if (quantity === 0) return;
     props.onAddToOrder(quantity);
@@ -90,11 +62,6 @@ export default function Menu(props: MenuProps) {
           <button onClick={handleDecrement} className="quantity-btn" aria-label="Decrease quantity" disabled={quantity === 0}>
             −
           </button>
-          {/* ============================================================
-              TODO 5: Display the current quantity here.
-              
-              Replace the hardcoded "1" below with your state variable.
-              ============================================================ */}
           <span className="quantity-count">{quantity}</span>
           <button onClick={handleIncrement} className="quantity-btn" aria-label="Increase quantity">
             +
