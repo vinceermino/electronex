@@ -244,3 +244,109 @@
     padding: 24px 16px;
   }
 }
+
+/* Category Dropdown Styles */
+.category-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdown-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 0 16px 0 14px;
+  height: 46px;
+  min-width: 190px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.select-wrapper:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.select-wrapper:focus-within {
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+/* Category Icon inside Select wrapper */
+.select-wrapper .category-icon {
+  margin-right: 10px;
+  color: var(--accent-color);
+  pointer-events: none;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.select-wrapper:hover .category-icon {
+  transform: scale(1.1);
+}
+
+/* The actual select element */
+.category-select-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding-right: 28px; /* space for arrow */
+  height: 100%;
+  width: 100%;
+  outline: none;
+}
+
+/* Dropdown arrow SVG */
+.dropdown-arrow {
+  position: absolute;
+  right: 14px;
+  color: var(--text-secondary);
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+.select-wrapper:hover .dropdown-arrow {
+  color: var(--text-primary);
+}
+
+.select-wrapper:focus-within .dropdown-arrow {
+  transform: rotate(180deg);
+  color: var(--text-primary);
+}
+
+/* Media Query for responsive spacing on smaller devices */
+@media (max-width: 580px) {
+  .catalog-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .category-dropdown-container {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .select-wrapper {
+    flex: 1;
+    max-width: 240px;
+  }
+}

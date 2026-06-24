@@ -15,76 +15,154 @@ const PRODUCTS = [
     price: 59999,
     description: "Sleek titanium body, 200MP camera, 120Hz display, and all-day battery life.",
     rating: 4.9,
-    image: "/images/smartphone.png"
+    image: "/images/smartphone.png",
+    category: "Smartphones"
   },
   {
     name: "ProBook X14",
     price: 79999,
     description: "Next-gen laptop with 14-inch OLED screen, 32GB RAM, and blazing-fast performance.",
     rating: 4.8,
-    image: "/images/laptop.png"
+    image: "/images/laptop.png",
+    category: "Laptops"
   },
   {
     name: "SoundPro ANC Headphones",
     price: 14499,
     description: "Active noise-canceling wireless headphones with studio-quality audio.",
     rating: 4.7,
-    image: "/images/headphones.png"
+    image: "/images/headphones.png",
+    category: "Audio"
   },
   {
     name: "SmartWatch Elite",
     price: 9999,
     description: "Track your health, fitness, and notifications with an elegant sapphire glass screen.",
     rating: 4.6,
-    image: "/images/smartwatch.png"
+    image: "/images/smartwatch.png",
+    category: "Wearables"
   },
   {
     name: "Ultra Tab 11",
     price: 24999,
     description: "Lightweight 11-inch tablet, ideal for creators with pencil support and 120Hz refresh rate.",
     rating: 4.7,
-    image: "/images/tablet.png"
+    image: "/images/tablet.png",
+    category: "Tablets"
   },
   {
     name: "CinemaCore Soundbar",
     price: 18999,
     description: "Immersive Dolby Atmos surround soundbar with wireless subwoofer for your home theater.",
     rating: 4.8,
-    image: "/images/soundbar.png"
+    image: "/images/soundbar.png",
+    category: "Audio"
   },
   {
     name: "4K Pro Stream Camera",
     price: 6499,
     description: "Crystal clear 4K webcam with auto-focus and dual stereo noise-canceling microphones.",
     rating: 4.5,
-    image: "/images/webcam.png"
+    image: "/images/webcam.png",
+    category: "Accessories"
   },
   {
     name: "ChargeDock Duo",
     price: 2499,
     description: "Fast wireless charging stand for your smartphone and smartwatch simultaneously.",
     rating: 4.4,
-    image: "https://images.unsplash.com/photo-1622445262465-2481c457487f?w=500&auto=format&fit=crop&q=60"
+    image: "https://images.unsplash.com/photo-1622445262465-2481c457487f?w=500&auto=format&fit=crop&q=60",
+    category: "Accessories"
   },
   {
     name: "CyberGrip Mouse",
     price: 3999,
     description: "Ergonomic wireless gaming mouse with 26K DPI sensor and custom RGB lighting.",
     rating: 4.6,
-    image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60"
+    image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60",
+    category: "Accessories"
   },
   {
     name: "Apex Mechanical Keyboard",
     price: 5999,
     description: "Hot-swappable tactile mechanical keyboard with premium PBT keycaps and aluminum frame.",
     rating: 4.7,
-    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60"
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60",
+    category: "Accessories"
   }
 ];
+
+const CATEGORIES = ["All", "Smartphones", "Laptops", "Audio", "Wearables", "Tablets", "Accessories"];
+
+const getCategoryIcon = (category: string) => {
+  switch (category) {
+    case "All":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      );
+    case "Smartphones":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+      );
+    case "Laptops":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="2" y1="20" x2="22" y2="20"></line>
+          <line x1="12" y1="17" x2="12" y2="20"></line>
+        </svg>
+      );
+    case "Audio":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+        </svg>
+      );
+    case "Wearables":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="7"></circle>
+          <polyline points="12 9 12 12 13.5 13.5"></polyline>
+          <path d="M16.51 7.49L18 2h-6l1.49 5.49M7.49 16.51L6 22h6l-1.49-5.49"></path>
+        </svg>
+      );
+    case "Tablets":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2" transform="rotate(90 12 12)"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+      );
+    case "Accessories":
+      return (
+        <svg className="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
 
 function App() {
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  const filteredProducts = selectedCategory === "All"
+    ? PRODUCTS
+    : PRODUCTS.filter(product => product.category === selectedCategory);
 
   const handleAddToOrder = (name: string, price: number, image: string, quantity: number) => {
     setOrders(prevOrders => {
@@ -176,12 +254,37 @@ function App() {
 
           {/* Catalog Header */}
           <div className="catalog-header">
-            <h2 className="catalog-title">Product Catalog</h2>
-            <span className="catalog-count">{PRODUCTS.length} Premium Items Available</span>
+            <div>
+              <h2 className="catalog-title">Product Catalog</h2>
+              <span className="catalog-count">{filteredProducts.length} Premium Items Available</span>
+            </div>
+
+            {/* Category Dropdown */}
+            <div className="category-dropdown-container">
+              <label htmlFor="category-select" className="dropdown-label">Category</label>
+              <div className="select-wrapper">
+                {getCategoryIcon(selectedCategory)}
+                <select
+                  id="category-select"
+                  className="category-select-dropdown"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {CATEGORIES.map(category => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+                <svg className="dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
           </div>
 
           <div className="menu-grid">
-            {PRODUCTS.map(product => (
+            {filteredProducts.map(product => (
               <Menu
                 key={product.name}
                 image={product.image}
