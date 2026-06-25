@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Menu from "./Components/Menu";
 import "./App.css";
+import OrderSummary from "./Components/OrderSummary";
 
 interface OrderItem {
   name: string;
@@ -156,7 +157,9 @@ const getCategoryIcon = (category: string) => {
 };
 
 function App() {
-  const orders: OrderItem[] = [];
+  
+
+  const [orders, setOrders] = useState<OrderItem[]>([])
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -166,6 +169,19 @@ function App() {
     : PRODUCTS.filter(product => product.category === selectedCategory);
 
   const handleAddToOrder = (name: string, price: number, image: string, quantity: number) => {
+    const newItem = {
+      name,
+      price,
+      image,
+      quantity
+    }
+
+    setOrders(prev => [...prev, newItem])
+
+    totalItems = orders.reduce((total, item) => {
+      return total + item.quantity;
+}, 0);
+  
   };
 
   const handleUpdateQuantity = (name: string, delta: number) => {
@@ -178,7 +194,7 @@ function App() {
   const handleClearOrder = () => {
   };
 
-  const totalItems = 0;
+  let totalItems = 0;
   const subtotalPrice = 0;
   const shippingFee = 0;
   const totalPrice = 0;
