@@ -169,18 +169,26 @@ function App() {
     : PRODUCTS.filter(product => product.category === selectedCategory);
 
   const handleAddToOrder = (name: string, price: number, image: string, quantity: number) => {
-    const newItem = {
-      name,
-      price,
-      image,
-      quantity
+  setOrders(prev => {
+    const existing = prev.find(item => item.name === name);
+    
+    if (existing) {
+      // Item exists - update quantity
+      return prev.map(item => {
+        if (item.name === name) {
+          // If item matches, update quantity
+          return { ...item, quantity: item.quantity + quantity };
+        } else {
+          // If item doesn't match, keep it as is
+          return item;
+        }
+      });
+    } else {
+      // Item doesn't exist - add new
+      return [...prev, { name, price, image, quantity }];
     }
-
-    setOrders(prev => [...prev, newItem])
-
-    totalItems = orders.reduce((total, item) => {
-      return total + item.quantity;
-}, 0);
+  });
+    
   
   };
 
@@ -194,7 +202,7 @@ function App() {
   const handleClearOrder = () => {
   };
 
-  let totalItems = 0;
+  const totalItems = 0;
   const subtotalPrice = 0;
   const shippingFee = 0;
   const totalPrice = 0;
