@@ -192,9 +192,18 @@ function App() {
   
   };
 
-  const handleUpdateQuantity = (name: string, delta: number) => {
-    
-  };
+  // study check point
+ const handleUpdateQuantity = (name: string, delta: number) => {
+  setOrders(prevOrders => 
+    prevOrders
+      .map(item => 
+        item.name === name 
+          ? { ...item, quantity: item.quantity + delta }
+          : item
+      )
+      .filter(item => item.quantity > 0)
+  );
+};
 
   const handleRemoveItem = (name: string) => {
   };
@@ -202,7 +211,7 @@ function App() {
   const handleClearOrder = () => {
   };
 
-  const totalItems = 0;
+  const totalItems = orders.reduce((sum, item) => sum + item.quantity, 0);
   const subtotalPrice = 0;
   const shippingFee = 0;
   const totalPrice = 0;
