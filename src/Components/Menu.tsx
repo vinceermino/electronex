@@ -25,8 +25,8 @@ export default function Menu(props: MenuProps) {
   };
 
   const handleAddClick = () => {
-    
-
+    props.onAddToOrder(value)
+    setValue(0)
   };
 
   return (
