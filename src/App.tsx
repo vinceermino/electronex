@@ -156,7 +156,8 @@ const getCategoryIcon = (category: string) => {
 };
 
 function App() {
-  const [orders, setOrders] = useState<OrderItem[]>([]);
+  const orders: OrderItem[] = [];
+
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
@@ -165,42 +166,24 @@ function App() {
     : PRODUCTS.filter(product => product.category === selectedCategory);
 
   const handleAddToOrder = (name: string, price: number, image: string, quantity: number) => {
-    setOrders(prevOrders => {
-      const existing = prevOrders.find(item => item.name === name);
-      if (existing) {
-        return prevOrders.map(item =>
-          item.name === name ? { ...item, quantity: item.quantity + quantity } : item
-        );
-      }
-      return [...prevOrders, { name, price, image, quantity }];
-    });
   };
 
   const handleUpdateQuantity = (name: string, delta: number) => {
-    setOrders(prevOrders =>
-      prevOrders
-        .map(item => item.name === name ? { ...item, quantity: item.quantity + delta } : item)
-        .filter(item => item.quantity > 0)
-    );
   };
 
   const handleRemoveItem = (name: string) => {
-    setOrders(prevOrders => prevOrders.filter(item => item.name !== name));
   };
 
   const handleClearOrder = () => {
-    setOrders([]);
-    setIsCartOpen(false);
   };
 
-  const totalItems = orders.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotalPrice = orders.reduce((sum, item) => sum + item.quantity * item.price, 0);
-  const shippingFee = subtotalPrice === 0 ? 0 : subtotalPrice > 15000 ? 0 : 150;
-  const totalPrice = subtotalPrice + shippingFee;
+  const totalItems = 0;
+  const subtotalPrice = 0;
+  const shippingFee = 0;
+  const totalPrice = 0;
 
   return (
     <div className="app-layout">
-      {/* Top Header Tracker */}
       <header className="main-header">
         <div className="header-brand">
           <div className="brand-logo-container">
@@ -245,21 +228,14 @@ function App() {
         </div>
       </header>
 
-      {/* Main Grid Workspace */}
       <div className="main-content">
-        {/* Full-width catalog grid */}
         <main className="menu-section">
-          {/* Promo Hero Banner */}
-          
-
-          {/* Catalog Header */}
           <div className="catalog-header">
             <div>
               <h2 className="catalog-title">Product Catalog</h2>
               <span className="catalog-count">{filteredProducts.length} Premium Items Available</span>
             </div>
 
-            {/* Category Dropdown */}
             <div className="category-dropdown-container">
               <label htmlFor="category-select" className="dropdown-label">Category</label>
               <div className="select-wrapper">
@@ -299,7 +275,6 @@ function App() {
         </main>
       </div>
 
-      {/* Cart Modal Slide-out Drawer */}
       {isCartOpen && orders.length > 0 && (
         <div className="cart-modal-overlay" onClick={() => setIsCartOpen(false)}>
           <div className="cart-modal-content" onClick={(e) => e.stopPropagation()}>

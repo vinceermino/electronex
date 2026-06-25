@@ -11,20 +11,13 @@ interface MenuProps {
 
 export default function Menu(props: MenuProps) {
 
-  const [quantity, setQuantity] = useState(0);
-
   const handleIncrement = () => {
-    setQuantity(prev => prev + 1);
   };
 
   const handleDecrement = () => {
-    if (quantity > 0) setQuantity(prev => prev - 1);
   };
 
   const handleAddClick = () => {
-    if (quantity === 0) return;
-    props.onAddToOrder(quantity);
-    setQuantity(0);
   };
 
   return (
@@ -59,16 +52,16 @@ export default function Menu(props: MenuProps) {
 
       <div className="menu-action-container">
         <div className="quantity-controller">
-          <button onClick={handleDecrement} className="quantity-btn" aria-label="Decrease quantity" disabled={quantity === 0}>
+          <button onClick={handleDecrement} className="quantity-btn" aria-label="Decrease quantity" disabled={true}>
             −
           </button>
-          <span className="quantity-count">{quantity}</span>
+          <span className="quantity-count">{0}</span>
           <button onClick={handleIncrement} className="quantity-btn" aria-label="Increase quantity">
             +
           </button>
         </div>
         
-        <button onClick={handleAddClick} className="add-btn" disabled={quantity === 0}>
+        <button onClick={handleAddClick} className="add-btn" disabled={true}>
           <svg
             width="16"
             height="16"
