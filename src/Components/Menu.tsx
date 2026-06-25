@@ -14,21 +14,18 @@ export default function Menu(props: MenuProps) {
   const [value, setValue] = useState(0);
 
   const handleIncrement = () => {
-    setValue(value + 1)
+    setValue(prev => prev + 1)
   };
 
   const handleDecrement = () => {
     if (value > 0) {
-      setValue(value - 1)
+      setValue(prev => prev - 1)
     }
     return;
   };
 
   const handleAddClick = () => {
-    // update cart quantity
-    props.onAddToOrder(value)
-    // reset item quantity
-    setValue(0)
+    
 
   };
 
