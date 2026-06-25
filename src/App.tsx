@@ -169,6 +169,7 @@ function App() {
   };
 
   const handleUpdateQuantity = (name: string, delta: number) => {
+    
   };
 
   const handleRemoveItem = (name: string) => {

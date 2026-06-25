@@ -11,10 +11,17 @@ interface MenuProps {
 
 export default function Menu(props: MenuProps) {
 
+  const [quantity, setQuantity] = useState(0);
+
   const handleIncrement = () => {
+    setQuantity(quantity + 1)
   };
 
   const handleDecrement = () => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1)
+    }
+    return;
   };
 
   const handleAddClick = () => {
@@ -52,10 +59,10 @@ export default function Menu(props: MenuProps) {
 
       <div className="menu-action-container">
         <div className="quantity-controller">
-          <button onClick={handleDecrement} className="quantity-btn" aria-label="Decrease quantity" disabled={true}>
+          <button onClick={handleDecrement} className="quantity-btn" aria-label="Decrease quantity" disabled={quantity === 0}>
             −
           </button>
-          <span className="quantity-count">{0}</span>
+          <span className="quantity-count">{quantity}</span>
           <button onClick={handleIncrement} className="quantity-btn" aria-label="Increase quantity">
             +
           </button>
