@@ -219,12 +219,14 @@ function App() {
   };
 
   const handleClearOrder = () => {
+    setOrders([])
+    setIsCartOpen(true)
   };
 
   const totalItems = orders.reduce((sum, item) => sum + item.quantity, 0);
   const subtotalPrice = 0;
   const shippingFee = 0;
-  const totalPrice = 0;
+  const totalPrice = orders.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   return (
     <div className="app-layout">
