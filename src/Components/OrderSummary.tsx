@@ -1,4 +1,5 @@
 interface OrderItem {
+  id: number;
   name: string;
   price: number;
   quantity: number;
@@ -9,7 +10,7 @@ interface OrderSummaryProps {
   orders: OrderItem[];
   totalItems: number;
   totalPrice: number;
-  onUpdateQuantity: (name: string, delta: number) => void;
+  onUpdateQuantity: (id: number, delta: number) => void;
   onRemoveItem: (name: string) => void;
   onClearOrder: () => void;
 }
@@ -62,11 +63,11 @@ export default function OrderSummary({
                   <div className="order-item-pricing">
                     <span className="order-item-subtotal">₱{item.price * item.quantity}</span>
                     <div className="order-item-controls">
-                      <button onClick={() => onUpdateQuantity(item.name, -1)} className="order-qty-btn">
+                      <button onClick={() => onUpdateQuantity(item.id, -1)} className="order-qty-btn">
                         −
                       </button>
                       <span className="order-qty-val">{item.quantity}</span>
-                      <button onClick={() => onUpdateQuantity(item.name, 1)} className="order-qty-btn">
+                      <button onClick={() => onUpdateQuantity(item.id, 1)} className="order-qty-btn">
                         +
                       </button>
                     </div>

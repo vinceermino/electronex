@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Menu from "./Components/Menu";
 import "./App.css";
-import OrderSummary from "./Components/OrderSummary";
 
 interface OrderItem {
+  id: number;
   name: string;
   price: number;
   quantity: number;
@@ -12,6 +12,7 @@ interface OrderItem {
 
 const PRODUCTS = [
   {
+    id: 0,
     name: "Titanium Phone Ultra",
     price: 59999,
     description: "Sleek titanium body, 200MP camera, 120Hz display, and all-day battery life.",
@@ -20,6 +21,7 @@ const PRODUCTS = [
     category: "Smartphones"
   },
   {
+    id: 1,
     name: "ProBook X14",
     price: 79999,
     description: "Next-gen laptop with 14-inch OLED screen, 32GB RAM, and blazing-fast performance.",
@@ -28,6 +30,7 @@ const PRODUCTS = [
     category: "Laptops"
   },
   {
+    id: 2,
     name: "SoundPro ANC Headphones",
     price: 14499,
     description: "Active noise-canceling wireless headphones with studio-quality audio.",
@@ -36,6 +39,7 @@ const PRODUCTS = [
     category: "Audio"
   },
   {
+    id: 3,
     name: "SmartWatch Elite",
     price: 9999,
     description: "Track your health, fitness, and notifications with an elegant sapphire glass screen.",
@@ -44,6 +48,7 @@ const PRODUCTS = [
     category: "Wearables"
   },
   {
+    id: 4,
     name: "Ultra Tab 11",
     price: 24999,
     description: "Lightweight 11-inch tablet, ideal for creators with pencil support and 120Hz refresh rate.",
@@ -52,6 +57,7 @@ const PRODUCTS = [
     category: "Tablets"
   },
   {
+    id: 5,
     name: "CinemaCore Soundbar",
     price: 18999,
     description: "Immersive Dolby Atmos surround soundbar with wireless subwoofer for your home theater.",
@@ -60,6 +66,7 @@ const PRODUCTS = [
     category: "Audio"
   },
   {
+    id: 6,
     name: "4K Pro Stream Camera",
     price: 6499,
     description: "Crystal clear 4K webcam with auto-focus and dual stereo noise-canceling microphones.",
@@ -68,6 +75,7 @@ const PRODUCTS = [
     category: "Accessories"
   },
   {
+    id: 7,
     name: "ChargeDock Duo",
     price: 2499,
     description: "Fast wireless charging stand for your smartphone and smartwatch simultaneously.",
@@ -75,7 +83,8 @@ const PRODUCTS = [
     image: "https://images.unsplash.com/photo-1622445262465-2481c457487f?w=500&auto=format&fit=crop&q=60",
     category: "Accessories"
   },
-  {
+  {  
+    id: 8,
     name: "CyberGrip Mouse",
     price: 3999,
     description: "Ergonomic wireless gaming mouse with 26K DPI sensor and custom RGB lighting.",
@@ -84,6 +93,7 @@ const PRODUCTS = [
     category: "Accessories"
   },
   {
+    id: 9,
     name: "Apex Mechanical Keyboard",
     price: 5999,
     description: "Hot-swappable tactile mechanical keyboard with premium PBT keycaps and aluminum frame.",
@@ -168,14 +178,14 @@ function App() {
     ? PRODUCTS
     : PRODUCTS.filter(product => product.category === selectedCategory);
 
-  const handleAddToOrder = (name: string, price: number, image: string, quantity: number) => {
+  const handleAddToOrder = (id: number, name: string, price: number, image: string, quantity: number) => {
   setOrders(prev => {
-    const existing = prev.find(item => item.name === name);
+    const existing = prev.find(item => item.id === id);
     
     if (existing) {
       // Item exists - update quantity
       return prev.map(item => {
-        if (item.name === name) {
+        if (item.id === id) {
           // If item matches, update quantity
           return { ...item, quantity: item.quantity + quantity };
         } else {
@@ -185,7 +195,7 @@ function App() {
       });
     } else {
       // Item doesn't exist - add new
-      return [...prev, { name, price, image, quantity }];
+      return [...prev, { id, name, price, image, quantity }];
     }
   });
     
@@ -193,11 +203,11 @@ function App() {
   };
 
   // study check point
- const handleUpdateQuantity = (name: string, delta: number) => {
+ const handleUpdateQuantity = (id: number, delta: number) => {
   setOrders(prevOrders => 
     prevOrders
       .map(item => 
-        item.name === name 
+        item.id === id 
           ? { ...item, quantity: item.quantity + delta }
           : item
       )
@@ -302,7 +312,7 @@ function App() {
                 rating={product.rating}
                 name={product.name}
                 description={product.description}
-                onAddToOrder={(qty) => handleAddToOrder(product.name, product.price, product.image, qty)}
+                onAddToOrder={(qty) => handleAddToOrder(product.id, product.name, product.price, product.image, qty)}
               />
             ))}
           </div>
@@ -334,11 +344,11 @@ function App() {
                       <div className="order-item-pricing">
                         <span className="order-item-subtotal">₱{(item.price * item.quantity).toLocaleString()}</span>
                         <div className="order-item-controls">
-                          <button onClick={() => handleUpdateQuantity(item.name, -1)} className="order-qty-btn">
+                          <button onClick={() => handleUpdateQuantity(item.id, -1)} className="order-qty-btn">
                             −
                           </button>
                           <span className="order-qty-val">{item.quantity}</span>
-                          <button onClick={() => handleUpdateQuantity(item.name, 1)} className="order-qty-btn">
+                          <button onClick={() => handleUpdateQuantity(item.id, 1)} className="order-qty-btn">
                             +
                           </button>
                         </div>
