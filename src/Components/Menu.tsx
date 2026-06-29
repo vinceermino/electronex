@@ -25,6 +25,8 @@ export default function Menu(props: MenuProps) {
   };
 
   const handleAddClick = () => {
+    props.onAddToOrder(quantity)
+    setQuantity(0)
   };
 
   return (
@@ -68,7 +70,7 @@ export default function Menu(props: MenuProps) {
           </button>
         </div>
         
-        <button onClick={handleAddClick} className="add-btn" disabled={true}>
+        <button onClick={handleAddClick} className="add-btn" disabled={quantity === 0}>
           <svg
             width="16"
             height="16"
