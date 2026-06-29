@@ -215,7 +215,9 @@ function App() {
   );
 };
 
-  const handleRemoveItem = (name: string) => {
+  const handleRemoveItem = (id: number) => {
+    // remove item logic using filter
+    setOrders(orders.filter(item => item.id !== id))
   };
 
   const handleClearOrder = () => {
@@ -339,7 +341,7 @@ function App() {
                     <div className="order-item-details">
                       <div className="order-item-header">
                         <span className="order-item-name">{item.name}</span>
-                        <button onClick={() => handleRemoveItem(item.name)} className="item-remove-btn" title="Remove item">
+                        <button onClick={() => handleRemoveItem(item.id)} className="item-remove-btn" title="Remove item">
                           ✕
                         </button>
                       </div>

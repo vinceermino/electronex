@@ -11,7 +11,7 @@ interface OrderSummaryProps {
   totalItems: number;
   totalPrice: number;
   onUpdateQuantity: (id: number, delta: number) => void;
-  onRemoveItem: (name: string) => void;
+  onRemoveItem: (id: number) => void;
   onClearOrder: () => void;
 }
 
@@ -56,7 +56,7 @@ export default function OrderSummary({
                 <div className="order-item-details">
                   <div className="order-item-header">
                     <span className="order-item-name">{item.name}</span>
-                    <button onClick={() => onRemoveItem(item.name)} className="item-remove-btn" title="Remove item">
+                    <button onClick={() => onRemoveItem(item.id)} className="item-remove-btn" title="Remove item">
                       ✕
                     </button>
                   </div>
