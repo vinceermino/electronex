@@ -17,7 +17,7 @@ const PRODUCTS = [
     price: 59999,
     description: "Sleek titanium body, 200MP camera, 120Hz display, and all-day battery life.",
     rating: 4.9,
-    image: "/images/smartphone.png",
+    image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60",
     category: "Smartphones"
   },
   {
@@ -26,7 +26,7 @@ const PRODUCTS = [
     price: 79999,
     description: "Next-gen laptop with 14-inch OLED screen, 32GB RAM, and blazing-fast performance.",
     rating: 4.8,
-    image: "/images/laptop.png",
+    image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&auto=format&fit=crop&q=60",
     category: "Laptops"
   },
   {
@@ -35,7 +35,7 @@ const PRODUCTS = [
     price: 14499,
     description: "Active noise-canceling wireless headphones with studio-quality audio.",
     rating: 4.7,
-    image: "/images/headphones.png",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
     category: "Audio"
   },
   {
@@ -44,7 +44,7 @@ const PRODUCTS = [
     price: 9999,
     description: "Track your health, fitness, and notifications with an elegant sapphire glass screen.",
     rating: 4.6,
-    image: "/images/smartwatch.png",
+    image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&auto=format&fit=crop&q=60",
     category: "Wearables"
   },
   {
@@ -53,7 +53,7 @@ const PRODUCTS = [
     price: 24999,
     description: "Lightweight 11-inch tablet, ideal for creators with pencil support and 120Hz refresh rate.",
     rating: 4.7,
-    image: "/images/tablet.png",
+    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&auto=format&fit=crop&q=60",
     category: "Tablets"
   },
   {
@@ -62,7 +62,7 @@ const PRODUCTS = [
     price: 18999,
     description: "Immersive Dolby Atmos surround soundbar with wireless subwoofer for your home theater.",
     rating: 4.8,
-    image: "/images/soundbar.png",
+    image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60",
     category: "Audio"
   },
   {
@@ -71,7 +71,7 @@ const PRODUCTS = [
     price: 6499,
     description: "Crystal clear 4K webcam with auto-focus and dual stereo noise-canceling microphones.",
     rating: 4.5,
-    image: "/images/webcam.png",
+    image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=500&auto=format&fit=crop&q=60",
     category: "Accessories"
   },
   {
@@ -80,7 +80,7 @@ const PRODUCTS = [
     price: 2499,
     description: "Fast wireless charging stand for your smartphone and smartwatch simultaneously.",
     rating: 4.4,
-    image: "https://images.unsplash.com/photo-1622445262465-2481c457487f?w=500&auto=format&fit=crop&q=60",
+    image: "https://images.unsplash.com/photo-1605152276897-4f618f831968?w=500&auto=format&fit=crop&q=60",
     category: "Accessories"
   },
   {  
@@ -89,7 +89,7 @@ const PRODUCTS = [
     price: 3999,
     description: "Ergonomic wireless gaming mouse with 26K DPI sensor and custom RGB lighting.",
     rating: 4.6,
-    image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60",
+    image: "https://images.unsplash.com/photo-1629429408209-1f912961dbd8?w=500&auto=format&fit=crop&q=60",
     category: "Accessories"
   },
   {
@@ -98,7 +98,7 @@ const PRODUCTS = [
     price: 5999,
     description: "Hot-swappable tactile mechanical keyboard with premium PBT keycaps and aluminum frame.",
     rating: 4.7,
-    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60",
+    image: "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&auto=format&fit=crop&q=60",
     category: "Accessories"
   }
 ];
@@ -225,10 +225,14 @@ function App() {
     setIsCartOpen(true)
   };
 
+  {/*The logic i follow for shipping 
+    fee Shipping fee: free if subtotal is 0 or over ₱15,000, otherwise ₱150.
+Total price: subtotal + shipping fee.*/}
+
   const totalItems = orders.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotalPrice = 0;
-  const shippingFee = 0;
-  const totalPrice = orders.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotalPrice = orders.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const shippingFee = (subtotalPrice === 0 || subtotalPrice > 15000) ? 0 : 150;
+  const totalPrice = orders.reduce((sum, item) => sum + (item.price * item.quantity), 0) + shippingFee;
 
   return (
     <div className="app-layout">
