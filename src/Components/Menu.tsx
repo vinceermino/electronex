@@ -6,7 +6,8 @@ interface MenuProps {
   rating: number;
   name: string;
   description: string;
-  onAddToOrder: (quantity: number) => void;
+  stock: number;
+  onAddToOrder: (qty: number) => void;
 }
 
 export default function Menu(props: MenuProps) {
@@ -14,7 +15,9 @@ export default function Menu(props: MenuProps) {
   const [quantity, setQuantity] = useState(0);
 
   const handleIncrement = () => {
-    setQuantity(quantity + 1)
+    if (quantity < props.stock) {
+      setQuantity(quantity + 1)
+    }
   };
 
   const handleDecrement = () => {
@@ -28,6 +31,8 @@ export default function Menu(props: MenuProps) {
     props.onAddToOrder(quantity)
     setQuantity(0)
   };
+
+
 
   return (
     <div className="menu-card">
@@ -56,6 +61,7 @@ export default function Menu(props: MenuProps) {
             </svg>
             {props.rating}
           </span>
+          <span className="menu-stock">Stock: {props.stock}</span>
         </div>
       </div>
 
@@ -65,7 +71,7 @@ export default function Menu(props: MenuProps) {
             −
           </button>
           <span className="quantity-count">{quantity}</span>
-          <button onClick={handleIncrement} className="quantity-btn" aria-label="Increase quantity">
+          <button onClick={handleIncrement} className="quantity-btn" aria-label="Increase quantity" disabled={quantity === props.stock}>
             +
           </button>
         </div>

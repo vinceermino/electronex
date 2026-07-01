@@ -10,11 +10,12 @@ interface OrderItem {
   image: string;
 }
 
-const PRODUCTS = [
+const products = [
   {
     id: 0,
     name: "Titanium Phone Ultra",
     price: 59999,
+    stock:88,
     description: "Sleek titanium body, 200MP camera, 120Hz display, and all-day battery life.",
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60",
@@ -24,6 +25,7 @@ const PRODUCTS = [
     id: 1,
     name: "ProBook X14",
     price: 79999,
+    stock: 67,
     description: "Next-gen laptop with 14-inch OLED screen, 32GB RAM, and blazing-fast performance.",
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&auto=format&fit=crop&q=60",
@@ -33,6 +35,7 @@ const PRODUCTS = [
     id: 2,
     name: "SoundPro ANC Headphones",
     price: 14499,
+    stock: 34,
     description: "Active noise-canceling wireless headphones with studio-quality audio.",
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
@@ -42,6 +45,7 @@ const PRODUCTS = [
     id: 3,
     name: "SmartWatch Elite",
     price: 9999,
+    stock: 55,
     description: "Track your health, fitness, and notifications with an elegant sapphire glass screen.",
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&auto=format&fit=crop&q=60",
@@ -51,6 +55,7 @@ const PRODUCTS = [
     id: 4,
     name: "Ultra Tab 11",
     price: 24999,
+    stock: 45,
     description: "Lightweight 11-inch tablet, ideal for creators with pencil support and 120Hz refresh rate.",
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&auto=format&fit=crop&q=60",
@@ -60,6 +65,7 @@ const PRODUCTS = [
     id: 5,
     name: "CinemaCore Soundbar",
     price: 18999,
+    stock: 55,
     description: "Immersive Dolby Atmos surround soundbar with wireless subwoofer for your home theater.",
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60",
@@ -69,6 +75,7 @@ const PRODUCTS = [
     id: 6,
     name: "4K Pro Stream Camera",
     price: 6499,
+    stock: 78,
     description: "Crystal clear 4K webcam with auto-focus and dual stereo noise-canceling microphones.",
     rating: 4.5,
     image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=500&auto=format&fit=crop&q=60",
@@ -78,6 +85,7 @@ const PRODUCTS = [
     id: 7,
     name: "ChargeDock Duo",
     price: 2499,
+    stock: 57,
     description: "Fast wireless charging stand for your smartphone and smartwatch simultaneously.",
     rating: 4.4,
     image: "https://images.unsplash.com/photo-1605152276897-4f618f831968?w=500&auto=format&fit=crop&q=60",
@@ -87,6 +95,7 @@ const PRODUCTS = [
     id: 8,
     name: "CyberGrip Mouse",
     price: 3999,
+    stock: 65,
     description: "Ergonomic wireless gaming mouse with 26K DPI sensor and custom RGB lighting.",
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1629429408209-1f912961dbd8?w=500&auto=format&fit=crop&q=60",
@@ -96,6 +105,7 @@ const PRODUCTS = [
     id: 9,
     name: "Apex Mechanical Keyboard",
     price: 5999,
+    stock: 4,
     description: "Hot-swappable tactile mechanical keyboard with premium PBT keycaps and aluminum frame.",
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&auto=format&fit=crop&q=60",
@@ -175,8 +185,8 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
   const filteredProducts = selectedCategory === "All"
-    ? PRODUCTS
-    : PRODUCTS.filter(product => product.category === selectedCategory);
+    ? products
+    : products.filter(product => product.category === selectedCategory);
 
   const handleAddToOrder = (id: number, name: string, price: number, image: string, quantity: number) => {
   setOrders(prev => {
@@ -224,6 +234,14 @@ function App() {
     setOrders([])
     setIsCartOpen(true)
   };
+
+
+  const handleCheckOut = (id:number,stockDecreaseQty:number, totalPrice:number) => {
+    const item = products.find(product => product.id === id);
+    if (item) {
+      item.stock -= stockDecreaseQty; // Decrease stock
+    }
+  }
 
   {/*The logic i follow for shipping 
     fee Shipping fee: free if subtotal is 0 or over ₱15,000, otherwise ₱150.
@@ -317,6 +335,7 @@ Total price: subtotal + shipping fee.*/}
                 key={product.name}
                 image={product.image}
                 price={product.price}
+                stock={product.stock}
                 rating={product.rating}
                 name={product.name}
                 description={product.description}
@@ -393,7 +412,8 @@ Total price: subtotal + shipping fee.*/}
                   <button onClick={handleClearOrder} className="clear-btn">
                     Clear All
                   </button>
-                  <button onClick={() => alert(`Checkout successful! Total amount charged: ₱${totalPrice.toLocaleString()}`)} className="checkout-btn">
+                  {/**fix this */}
+                  <button onClick={handleCheckOut()} className="checkout-btn">
                     Checkout
                   </button>
                 </div>
