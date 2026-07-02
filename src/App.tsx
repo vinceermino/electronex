@@ -15,7 +15,7 @@ const products = [
     id: 0,
     name: "Titanium Phone Ultra",
     price: 59999,
-    stock:88,
+    stock:0,
     description: "Sleek titanium body, 200MP camera, 120Hz display, and all-day battery life.",
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60",
@@ -178,9 +178,7 @@ const getCategoryIcon = (category: string) => {
 
 function App() {
   
-
   const [orders, setOrders] = useState<OrderItem[]>([])
-
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
@@ -236,11 +234,39 @@ function App() {
   };
 
 
-  const handleCheckOut = (id:number,stockDecreaseQty:number, totalPrice:number) => {
-    const item = products.find(product => product.id === id);
-    if (item) {
-      item.stock -= stockDecreaseQty; // Decrease stock
+  const handleCheckOut = () => {
+    const failedItems: { id: number; name: string; available: number }[] = [];
+
+    // Pass 1: check stock for every item first, don't touch anything yet
+    for (const item of orders) {
+      const product = products.find((p) => p.id === item.id);
+
+      if (!product || product.stock < item.quantity) {
+        failedItems.push({
+          id: item.id,
+          name: product?.name ?? item.name,
+          available: product?.stock ?? 0,
+        });
+      }
     }
+
+    // If ANYTHING failed, stop here — nothing gets deducted
+    if (failedItems.length > 0) {
+      const message = failedItems
+        .map((f) => `${f.name} (only ${f.available} left)`)
+        .join(", ");
+      alert(`Not enough stock: ${message}`);
+      return;
+    }
+
+    // Pass 2: everything checked out fine, now actually deduct stock
+    for (const item of orders) {
+      const product = products.find((p) => p.id === item.id)!;
+      product.stock -= item.quantity;
+    }
+
+    alert("Order placed!");
+    setOrders([]); // clear the cart
   }
 
   {/*The logic i follow for shipping 
@@ -413,7 +439,7 @@ Total price: subtotal + shipping fee.*/}
                     Clear All
                   </button>
                   {/**fix this */}
-                  <button onClick={handleCheckOut()} className="checkout-btn">
+                  <button onClick={handleCheckOut} className="checkout-btn">
                     Checkout
                   </button>
                 </div>
