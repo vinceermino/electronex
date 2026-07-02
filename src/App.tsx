@@ -365,6 +365,7 @@ Total price: subtotal + shipping fee.*/}
                 rating={product.rating}
                 name={product.name}
                 description={product.description}
+                category={product.category}
                 onAddToOrder={(qty) => handleAddToOrder(product.id, product.name, product.price, product.image, qty)}
               />
             ))}
